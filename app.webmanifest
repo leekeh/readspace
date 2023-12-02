@@ -1,0 +1,19 @@
+{
+  "name": "ReadSpace",
+  "short_name": "ReadSpace",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "shortcuts": [
+    {
+      "name": "Reader",
+      "url": "/reader",
+      "description": "Start reading, continue where you left off."
+    },
+    {
+      "name": "Library",
+      "url": "/library",
+      "description": "Browse books and other documents"
+    }
+  ],
+  "icons": []
+}
