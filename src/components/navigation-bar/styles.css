@@ -1,0 +1,60 @@
+navigation-bar {
+  cursor: none;
+}
+
+navigation-bar ul {
+  border-top: 1.5px solid var(--foreground);
+  width: 100%;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+navigation-bar a {
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: none;
+  pointer-events: all;
+}
+
+navigation-bar a:hover ~ #cursor {
+  width: 48px;
+  height: 48px;
+}
+
+navigation-bar a[aria-current] img {
+  border-radius: 999px;
+  outline: 1.5px solid var(--foreground);
+  position: relative;
+  padding: 2px;
+}
+
+navigation-bar li,
+navigation-bar img {
+  pointer-events: none;
+}
+
+#cursor {
+  background-color: rgb(var(--accent), 0.2);
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: width 0.2s ease, height 0.2s ease, translate 0.2s ease;
+  /* transition: top 0.05s ease-out, left 0.05s ease-out; */
+}
