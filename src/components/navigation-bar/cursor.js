@@ -1,94 +1,136 @@
-let offsetLeft = 0;
-let offsetTop = 0;
-let xp = 0;
-let yp = 0;
-
-const cursorDefault = 24;
-const cursorLarge = 44;
-
 /**
  * Create a cursor ball that replaces the user cursor
  * @param {HTMLDataListElement | null} currentItem - Reference to the active nav item.
  * @param {HTMLElement} navElement - Reference to the navigation-bar element.
  */
 export function createCursor(currentItem, navElement) {
-  const cursor = Object.assign(document.createElement("div"), {
-    className: "cursor",
-    id: "cursor",
-  });
-
-  function setDefaultStyle() {
-    cursor.style.width = `${cursorDefault}px`;
-    cursor.style.height = `${cursorDefault}px`;
-    cursor.style.translate = `-${cursorDefault / 2}px`;
-  }
-
-  function setLargeStyle() {
-    cursor.style.width = `${cursorLarge}px`;
-    cursor.style.height = `${cursorLarge}px`;
-    cursor.style.translate = `-${cursorLarge / 2}px`;
-  }
-
-  /**
-   * Focuses on the current element.
-   * @param {boolean} [immediate] - Indicates whether the focus should happen immediately.
-   */
-  function focusCurrentElement(immediate) {
+  /** Bring the cursor ball to the currently active navigation item */
+  function focusCurrentElement() {
     if (currentItem) {
-      offsetLeft = currentItem.getBoundingClientRect().left + 30;
-      offsetTop = currentItem.getBoundingClientRect().top + 9;
-      if (immediate) {
-        xp = offsetLeft;
-        yp = offsetTop;
-        cursor.style.left = `${offsetLeft}px`;
-        cursor.style.top = `${offsetTop}px`;
-      }
+      const imgPosition = currentItem
+        .getElementsByTagName("img")[0]
+        .getBoundingClientRect();
+      cursor.offset = { left: imgPosition.left + 4, top: imgPosition.top };
     } else {
-      offsetLeft = -100;
+      cursor.offset = { left: -100, top: cursor.offset.top };
     }
   }
 
   navElement.addEventListener("mousemove", function (e) {
-    offsetLeft = e.clientX;
-    offsetTop = e.clientY;
-    if (
+    // Cursor grows on clickable links
+    cursor.size =
       e.target?.tagName === "A" &&
       e.target.getAttribute("aria-current") === null
-    ) {
-      setLargeStyle();
-    } else {
-      setDefaultStyle();
-    }
+        ? "large"
+        : "default";
+    cursor.mode = "pointer";
+    cursor.offset = { left: e.clientX, top: e.clientY };
   });
 
   navElement.addEventListener("focusin", function (e) {
-    offsetLeft = e.target.getBoundingClientRect().left + 30;
-    offsetTop = e.target.getBoundingClientRect().top + 9;
-    setLargeStyle();
+    const anchorPosition = e.target.getBoundingClientRect();
+    const left =
+      anchorPosition.left + (anchorPosition.right - anchorPosition.left) / 2;
+    const top =
+      anchorPosition.top + (anchorPosition.bottom - anchorPosition.top) / 2;
+    cursor.size = "large";
+    cursor.mode = "pointer";
+    cursor.offset = {
+      left,
+      top,
+    };
   });
 
   navElement.addEventListener("focusout", function (e) {
+    console.log(e);
     const anchors = Array.from(navElement.getElementsByTagName("a"));
-    if (e.target === anchors[anchors.length - 1]) {
+    if (e.target === anchors[anchors.length - 1] || !e.relatedTarget) {
       focusCurrentElement();
-      setDefaultStyle();
+      cursor.size = "default";
+      cursor.mode = "default";
     }
   });
 
   navElement.addEventListener("mouseleave", function (e) {
     focusCurrentElement();
-    setDefaultStyle();
+    cursor.size = "default";
+    cursor.mode = "default";
   });
 
-  setDefaultStyle();
-  focusCurrentElement(true);
+  focusCurrentElement();
 
-  setInterval(function () {
-    xp += (offsetLeft - xp) / 6;
-    yp += (offsetTop - yp) / 6;
-    cursor.style.left = `${xp}px`;
-    cursor.style.top = `${yp}px`;
-  }, 20);
+  return cursor.element;
+}
 
-  return cursor;
+/**
+ * The cursor configuration object.
+ *
+ * @type {import("./cursor.d.ts").Cursor }
+ */
+const cursor = new Proxy(
+  {
+    size: "default",
+    innerSize: 24,
+    mode: "initial",
+    offset: { top: 0, left: 0 },
+    element: Object.assign(document.createElement("div"), {
+      className: "cursor",
+      id: "cursor",
+    }),
+  },
+  {
+    set(object, prop, value) {
+      const element = object.element;
+      if (prop === "size") {
+        const size = value === "default" ? 24 : 44;
+        object.innerSize = size;
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+        //@ts-ignore inner object is not properly typed by ts
+        if (object.mode === "pointer") {
+          centerOnPointer(element, object.innerSize);
+        }
+      }
+      if (prop === "mode") {
+        object.mode = value;
+        if (value === "pointer") {
+          centerOnPointer(element, object.innerSize);
+        } else {
+          element.style.transform = "none";
+        }
+      }
+      if (prop === "offset") {
+        offsetLeft = value.left;
+        offsetTop = value.top;
+      }
+      return true;
+    },
+  }
+);
+
+let offsetLeft = 0;
+let offsetTop = 0;
+
+// Animate the cursor for smooth movement
+setInterval(function () {
+  if (cursor.mode !== "initial") {
+    const { left, top } = cursor.element.style;
+    const xp = +left.replace("px", "");
+    const yp = +top.replace("px", "");
+    const animationValue = 6;
+    cursor.element.style.left = `${xp + (offsetLeft - xp) / animationValue}px`;
+    cursor.element.style.top = `${yp + (offsetTop - yp) / animationValue}px`;
+  } else {
+    cursor.element.style.left = `${offsetLeft}px`;
+    cursor.element.style.top = `${offsetTop}px`;
+  }
+}, 20);
+
+/**
+ * Adjust positioning so that the pointer circle is centered on the user pointer position
+ * @param {HTMLElement} element Cursor element
+ * @param {number} size Size of the cursor
+ */
+function centerOnPointer(element, size) {
+  element.style.transform = `translate(-${size / 2}px, -${size / 2}px)`;
 }

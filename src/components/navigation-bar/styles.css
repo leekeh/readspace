@@ -29,6 +29,7 @@ navigation-bar a {
   min-height: 44px;
   cursor: none;
   pointer-events: all;
+  user-select: none;
 }
 
 navigation-bar a:hover ~ #cursor {
