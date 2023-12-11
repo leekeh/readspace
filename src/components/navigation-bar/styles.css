@@ -5,10 +5,10 @@ navigation-bar {
 navigation-bar ul {
   border-top: 1.5px solid var(--foreground);
   width: 100%;
+  height: 100%;
   background-color: var(--background);
   display: flex;
   flex-direction: row;
-  width: 100%;
   justify-content: space-around;
   align-items: center;
   box-sizing: border-box;
@@ -57,5 +57,24 @@ navigation-bar img {
   border-radius: 999px;
   pointer-events: none;
   transition: width 0.2s ease, height 0.2s ease, translate 0.2s ease;
-  /* transition: top 0.05s ease-out, left 0.05s ease-out; */
+}
+
+@media (min-width: 700px) {
+  body {
+    flex-direction: row;
+  }
+  nav {
+    height: 100%;
+  }
+  navigation-bar {
+    order: -1;
+  }
+
+  navigation-bar ul {
+    border-top: none;
+    border-right: 1.5px solid var(--foreground);
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+  }
 }
