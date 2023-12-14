@@ -8,5 +8,10 @@
     "outDir": "types",
     "lib": ["ES2016", "dom"]
   },
-  "include": ["src/**/*.js", "src/**/*.d.ts"]
+  "include": [
+    "resources/**/*.js",
+    "resources/**/*.d.ts",
+    "index/index.js",
+    "read/reader.js"
+  ]
 }

@@ -65,7 +65,7 @@ export function createCursor(currentItem, navElement) {
 /**
  * The cursor configuration object.
  *
- * @type {import("./cursor.d.ts").Cursor }
+ * @type {import("./cursor").Cursor }
  */
 const cursor = new Proxy(
   {
