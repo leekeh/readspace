@@ -39,7 +39,9 @@ export function createNavigation() {
     const li = Object.assign(document.createElement("li"), {
       innerHTML: `<li>
   <a href="${item.url}" ${isCurrent ? "aria-current" : ""}>
-      <img src='assets/icons/${item.iconPath}.svg' height='24px' width='24px' />
+      <img src='/assets/icons/${
+        item.iconPath
+      }.svg' height='24px' width='24px' />
       ${item.text}
   </a>
 </li>`,

@@ -9,7 +9,7 @@ export function registerComponent(name) {
   });
   const link = Object.assign(document.createElement("link"), {
     rel: "stylesheet",
-    href: `resources/components/${name}/styles.css`,
+    href: `/resources/components/${name}/styles.css`,
   });
   document.getElementsByTagName("head")[0].appendChild(link);
 }
