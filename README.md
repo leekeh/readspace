@@ -1,16 +1,38 @@
-# ReadSpace
+# create-svelte
 
-ReadSpace is a Progressive Web App that allows you to read texts in a personalized, distraction-free environment. It is built with vanilla JavaScript, HTML, and CSS.
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-## Why not React/Vue/Svelte/[insert framework]?
+## Creating a project
 
-Nowadays, frontend development is dominated by frameworks, the one succeeding the other in rapid succession. I wanted to learn how to use web APIs and access the browser's full capabilities, instead of using abstraction layers. The same goes for the usage of libraries, although I took some samples from open-source projects. Finally, I think that it is nice to ship code that does not need to compile. It is more of an idealism than something that benefits the users, but I like the idea of shipping code that is as close to the source as possible. For the production build, I do use minification to increase performance.
+If you're seeing this, you've probably already done this step. Congrats!
 
-## Features
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-- Change font family, size, and line height
-- Change background, text and highlight color
-- Pick from a selection of reading modes, including speed reading
-- Annotate and highlight text
-- Save your settings and annotations in the browser, or log in for synchronization across devices
-- Optionally install the app on your device for offline usage
+# create a new project in my-app
+npm create svelte@latest my-app
+```
+
+## Developing
+
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
