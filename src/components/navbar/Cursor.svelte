@@ -13,7 +13,7 @@
 
 <style>
   div {
-    background-color: rgb(var(--accent), 0.2);
+    background-color: var(--highlight-color);
     position: absolute;
     width: 24px;
     height: 24px;

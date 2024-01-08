@@ -1,57 +1,22 @@
-<section>Hero image with primary CTA</section>
-<section>Highlight some features</section>
-<section>Highlight some books</section>
+<script lang="ts">
+  import { Link } from "@components";
+</script>
+
+<p class="lineOne">Coming soon</p>
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit facere corporis
-  accusantium saepe ratione dolores perferendis at ut corrupti, minima est harum
-  nemo quo obcaecati consectetur? Ullam, consequuntur? Asperiores autem cumque
-  eum fugit doloribus magnam exercitationem minima nihil blanditiis quidem,
-  earum cupiditate reprehenderit magni in quo dolore consectetur enim tempora
-  quia nam suscipit assumenda placeat quasi? Fugit, expedita provident possimus
-  culpa itaque optio id ipsum officia perferendis rem dolor suscipit quaerat
-  mollitia. Id quibusdam voluptatibus eum maxime exercitationem quae provident.
-  Doloremque accusamus quas repellendus, reprehenderit at alias amet voluptas
-  corporis odit qui atque laudantium libero sit ex iste, voluptate mollitia.
-  Repellendus, voluptas. Error eaque sunt repudiandae odit exercitationem
-  ratione sapiente ipsa iure voluptates quos saepe, veniam temporibus aliquid
-  excepturi dolores debitis aliquam ad dolorem labore architecto quas nam autem
-  non? Consequuntur praesentium impedit sunt ipsam veritatis repudiandae beatae
-  repellat ullam cupiditate eaque est nesciunt earum architecto ratione, eius
-  distinctio, necessitatibus accusamus maxime molestiae! Animi tempora autem
-  inventore harum debitis fuga asperiores soluta magnam ratione blanditiis
-  distinctio maiores ipsa esse, aut assumenda explicabo dolorem saepe qui
-  delectus consequuntur tenetur praesentium! Consequatur provident non illum,
-  dolorum ab maiores magnam quod quibusdam voluptate error, et laboriosam, iste
-  fugit tenetur vel necessitatibus eius eum veniam quam deserunt? Architecto
-  omnis eaque voluptatum voluptates veniam unde dicta, at totam officiis odit,
-  saepe nesciunt fugiat corporis facilis sequi consequuntur eos, exercitationem
-  obcaecati excepturi provident repellendus? Ipsam quam praesentium ratione unde
-  fuga exercitationem magnam natus enim delectus! Voluptas, quisquam facere
-  blanditiis vero laborum quidem dignissimos adipisci illo repellat labore.
-  Dolore veritatis facilis laboriosam consequuntur deserunt repudiandae ullam
-  iusto molestiae beatae illum quae nobis reprehenderit rerum, culpa tenetur
-  praesentium alias, dolorum cumque quibusdam ipsam officiis nemo hic minus.
-  Magni minima temporibus omnis beatae vero doloremque aspernatur eos? Nulla
-  exercitationem pariatur eveniet laboriosam odit enim id nostrum culpa iusto
-  amet, provident, ipsum excepturi voluptas facilis nesciunt repudiandae magnam
-  quo nisi natus quis! Iste consectetur quasi blanditiis exercitationem nulla,
-  cumque eveniet reprehenderit magnam iusto optio laudantium quis maiores
-  assumenda quod ducimus, sed vero eaque neque omnis. Itaque dicta inventore
-  magnam praesentium facere sint aliquam earum numquam assumenda adipisci
-  voluptatum possimus pariatur dolores quod delectus et modi qui, fugit maiores
-  error impedit animi enim. Ducimus nam, cumque molestias officia minima
-  voluptate ipsa temporibus aspernatur ratione autem odio! Quod, harum nesciunt
-  repellat unde porro sit obcaecati suscipit nisi ut sunt inventore sint ullam
-  veritatis ea optio vel quos rerum atque voluptatum ad. Fuga illo quas illum!
-  Beatae nisi repudiandae odio vero. A distinctio sint, tenetur nihil
-  voluptatibus repudiandae ipsa praesentium vero amet officiis delectus
-  cupiditate explicabo officia eius voluptatum doloremque obcaecati sunt quis
-  assumenda quos! Officia, ipsum corrupti sit reiciendis libero dolorum quidem
-  ex sunt nesciunt, eaque voluptate reprehenderit minima a pariatur doloribus
-  inventore, vero recusandae deleniti sequi ipsa eligendi et? Asperiores error
-  modi sapiente ullam reiciendis voluptate ipsa nihil cumque incidunt aperiam
-  delectus sunt itaque iste, commodi, maxime a laboriosam obcaecati minima
-  aliquid animi? Odit ipsam temporibus facere, necessitatibus aperiam inventore
-  illo quos autem dignissimos corrupti? Beatae ut tempore libero dolore nostrum!
+  With love,<br />
+  <Link href="https://leekeh.com">leekeh</Link>
 </p>
-<input type="checkbox" />
+
+<style>
+  .lineOne {
+    padding-top: 40dvh;
+    font-size: 4rem;
+  }
+
+  p {
+    font-size: 2rem;
+    text-align: center;
+    padding: min(10rem, 5vw) min(10rem, 10vw);
+  }
+</style>

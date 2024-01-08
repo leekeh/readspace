@@ -14,7 +14,9 @@
 
 {#if hasNavBar}
   <NavBar {routes} />
-  <main><slot /></main>
+  <main id="main">
+    <slot />
+  </main>
 {:else}
   <slot />
 {/if}
@@ -23,8 +25,6 @@
   :global(body) {
     background-color: var(--bg-primary);
     font-family: "Source Serif Pro", serif;
-    color: var(--foreground);
-    accent-color: var(--accent);
     color: var(--foreground);
     background-color: var(--background);
     height: 100vh;
@@ -38,16 +38,23 @@
   }
 
   :global(::selection) {
-    background-color: rgb(var(--accent), 0.4);
+    background-color: var(--highlight-color);
   }
 
   /* CSS Variables */
   :root {
     --background: #fffffb;
     --foreground: #3d3d3d;
-    --accent: 62, 0, 255;
-    accent-color: rgb(var(--accent), 0.2);
+    --background-inverted: var(--foreground);
+    --foreground-inverted: var(--background);
+    --hue: 62, 0, 255;
+    --foreground-colored: rgb(var(--hue), 0.8);
+    --highlight-color: rgb(var(--hue), 0.2);
     --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    --border-width: 2px;
+    --border-radius: 2rem;
+    --border: var(--border-width) solid var(--foreground);
+    accent-color: var(--highlight-color);
   }
 
   /* CSS Reset

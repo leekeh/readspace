@@ -1,14 +1,15 @@
 <script lang="ts">
   export let routes: { url: string; icon: string; text: string }[];
-  import NavItem from "./+navItem.svelte";
-  import Cursor from "./+cursor.svelte";
-
+  import NavItem from "./NavItem.svelte";
+  import Cursor from "./Cursor.svelte";
+  import SkipButton from "./SkipButton.svelte";
   let navRef: HTMLElement;
 </script>
 
 <nav bind:this={navRef}>
   <Cursor {navRef} />
   <ul>
+    <SkipButton />
     {#each routes as route}
       <NavItem {...route} />
     {/each}
