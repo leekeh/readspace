@@ -1,10 +1,15 @@
 <script lang="ts">
   import { NavBar } from "@components";
+  import { initializeEnvironmentStores } from "@stores";
   import { routes } from "@util";
+  import { onMount } from "svelte";
   export let data;
   $: ({ title, hasNavBar } = data);
   //  todo: get theme color from settings
   const color = "#19483a";
+  onMount(() => {
+    initializeEnvironmentStores();
+  });
 </script>
 
 <svelte:head>

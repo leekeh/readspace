@@ -1,5 +1,7 @@
 import { effect } from "@util";
 import { page } from "$app/stores";
+import { isTouchDevice } from "@stores";
+import { get } from "svelte/store";
 
 const stylisticOffset = 4;
 
@@ -55,8 +57,9 @@ export class Cursor {
   }
 
   handleHover(e: MouseEvent) {
-    // Cursor grows on clickable links
+    // Mouse cursor grows on clickable links
     const size =
+      !get(isTouchDevice) &&
       e.target instanceof Element &&
       e.target.tagName === "A" &&
       e.target.getAttribute("aria-current") === null
