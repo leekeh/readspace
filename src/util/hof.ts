@@ -14,10 +14,14 @@ export function effect<T extends AnyExceptVoid, C extends AnyExceptVoid>(
   let cache: T | undefined = undefined;
   let cachedEff: C | undefined = undefined;
   return () => {
-    if (cachedEff !== eff()) {
-      cachedEff = eff();
-      cache = fn();
+    const cacheTest = eff();
+    if (cachedEff !== cacheTest) {
+      cachedEff = cacheTest;
+      const newValue = fn();
+      cache = newValue;
+      return newValue;
+    } else {
+      return cache as T;
     }
-    return cache as T;
   };
 }

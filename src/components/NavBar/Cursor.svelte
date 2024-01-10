@@ -1,11 +1,20 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import { Cursor } from "./cursorHelpers";
+  import { afterNavigate } from "$app/navigation";
+  import { isTouchDevice } from "@stores";
   export let navRef: HTMLElement;
   let cursorRef: HTMLElement;
+  let cursor: Cursor;
   onMount(async () => {
     await tick();
-    new Cursor(cursorRef, navRef);
+    cursor = new Cursor(cursorRef, navRef);
+  });
+
+  afterNavigate(() => {
+    if ($isTouchDevice && cursor) {
+      cursor.focusCurrentElement();
+    }
   });
 </script>
 

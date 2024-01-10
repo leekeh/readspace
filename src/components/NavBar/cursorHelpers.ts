@@ -1,7 +1,8 @@
 import { effect } from "@util";
 import { page } from "$app/stores";
-import { isTouchDevice } from "@stores";
+import { afterNavigate } from "$app/navigation";
 import { get } from "svelte/store";
+import { isTouchDevice } from "@stores";
 
 const stylisticOffset = 4;
 
@@ -43,13 +44,15 @@ export class Cursor {
     this.cursorDiv.style.left = `${left + stylisticOffset}px`;
     this.cursorDiv.style.top = `${top}px`;
 
-    navReference.addEventListener("mousemove", this.handleHover.bind(this));
-    navReference.addEventListener(
-      "mouseleave",
-      this.handleMouseLeave.bind(this)
-    );
-    navReference.addEventListener("focusin", this.handleFocusIn.bind(this));
-    navReference.addEventListener("focusout", this.handleFocusOut.bind(this));
+    if (!get(isTouchDevice)) {
+      navReference.addEventListener("mousemove", this.handleHover.bind(this));
+      navReference.addEventListener(
+        "mouseleave",
+        this.handleMouseLeave.bind(this)
+      );
+      navReference.addEventListener("focusin", this.handleFocusIn.bind(this));
+      navReference.addEventListener("focusout", this.handleFocusOut.bind(this));
+    }
 
     setInterval(this.animate.bind(this), 20);
 
@@ -57,15 +60,13 @@ export class Cursor {
   }
 
   handleHover(e: MouseEvent) {
-    // Mouse cursor grows on clickable links
+    // Mouse cursor grows on clickable links;
     const size =
-      !get(isTouchDevice) &&
       e.target instanceof Element &&
       e.target.tagName === "A" &&
       e.target.getAttribute("aria-current") === null
         ? "large"
         : "default";
-
     this.setSize(size);
     this.setMode("pointer");
     this.setOffset({ left: e.clientX, top: e.clientY });

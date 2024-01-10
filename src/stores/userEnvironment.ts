@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 export const isTablet = writable(false);
 export const isDesktop = writable(false);
 export const isLargeScreen = writable(false);
-export const isTouchDevice = writable(false);
+export const isTouchDevice = writable(true);
 
 export const platform = writable("Unknown");
 
@@ -11,10 +11,12 @@ export function initializeEnvironmentStores() {
   const mqTablet = window.matchMedia("(min-width: 768px)");
   const mqDesktop = window.matchMedia("(min-width: 1024px)");
   const mqLargeScreen = window.matchMedia("(min-width: 1440px)");
+  const mqPointer = window.matchMedia("(any-hover: none)");
 
   isTablet.set(mqTablet.matches);
   isDesktop.set(mqDesktop.matches);
   isLargeScreen.set(mqLargeScreen.matches);
+  isTouchDevice.set(mqPointer.matches);
 
   mqTablet.onchange = (e) => {
     isTablet.set(e.matches);
@@ -25,8 +27,10 @@ export function initializeEnvironmentStores() {
   mqLargeScreen.onchange = (e) => {
     isLargeScreen.set(e.matches);
   };
+  mqPointer.onchange = (e) => {
+    isTouchDevice.set(e.matches);
+  };
 
-  isTouchDevice.set("ontouchstart" in window);
   platform.set(findPlatform());
 }
 
