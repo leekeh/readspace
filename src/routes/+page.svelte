@@ -12,6 +12,7 @@
   .lineOne {
     padding-top: 40dvh;
     font-size: 4rem;
+    text-align: center;
   }
 
   p {

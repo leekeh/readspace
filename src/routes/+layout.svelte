@@ -1,11 +1,8 @@
 <script lang="ts">
-  import { NavBar } from "@components";
   import { initializeEnvironmentStores } from "@stores";
-  import { routes } from "@util";
   import { onMount } from "svelte";
   export let data;
-  $: ({ title, hasNavBar } = data);
-  //  todo: get theme color from settings
+  $: ({ title } = data);
   const color = "#19483a";
   onMount(() => {
     initializeEnvironmentStores();
@@ -16,15 +13,7 @@
   <meta name="theme-color" content={color} />
   <title>ReadSpace - {title}</title>
 </svelte:head>
-
-{#if hasNavBar}
-  <NavBar {routes} />
-  <main id="main">
-    <slot />
-  </main>
-{:else}
-  <slot />
-{/if}
+<slot />
 
 <style>
   :global(body) {

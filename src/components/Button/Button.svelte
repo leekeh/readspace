@@ -3,6 +3,8 @@
   export let href: string | undefined = undefined;
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte does not recognize that this has an implicit role -->
 <svelte:element
   this={href ? "a" : "button"}
   {href}
@@ -25,7 +27,6 @@
     padding: 0.6rem 1rem;
     -webkit-tap-highlight-color: transparent;
     border-radius: var(--border-radius);
-    /* outline: none; */
     border: var(--border);
     font-family: "Wix Madefor Display", sans-serif;
     font-size: inherit;

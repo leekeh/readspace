@@ -17,7 +17,7 @@
 </nav>
 
 <style>
-  :global(body) {
+  /* :global(body) {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -26,7 +26,7 @@
 
   :global(main) {
     flex: 1;
-  }
+  } */
 
   nav {
     cursor: none;
