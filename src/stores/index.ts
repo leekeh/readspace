@@ -6,3 +6,5 @@ export {
   platform,
   initializeEnvironmentStores,
 } from "./userEnvironment";
+
+export { settings } from "./settings";

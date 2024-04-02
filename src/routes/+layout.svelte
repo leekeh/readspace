@@ -27,23 +27,12 @@
     overflow: hidden;
   }
 
-  main {
-    overflow-y: auto;
-  }
-
   :global(::selection) {
     background-color: var(--highlight-color);
   }
 
   /* CSS Variables */
   :root {
-    --background: #fffffb;
-    --foreground: #3d3d3d;
-    --background-inverted: var(--foreground);
-    --foreground-inverted: var(--background);
-    --hue: 62, 0, 255;
-    --foreground-colored: rgb(var(--hue), 0.8);
-    --highlight-color: rgb(var(--hue), 0.2);
     --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     --border-width: 2px;
     --border-radius: 2rem;
