@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Reader } from "@components";
+  import { Reader } from "@reader";
 </script>
 
 <Reader />

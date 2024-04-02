@@ -1,10 +1,8 @@
-<script lang="ts">
-  import { Link } from "@components";
-  import { settings } from "@stores";
-  console.log($settings.readMode);
-</script>
-
-Readmode: {$settings.readMode} <br />
+export const testFile = new File(
+  [
+    new Blob([
+      `
+# Lorem ipsum
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium deserunt vel
 at dolores tempora velit repellendus. Illum excepturi eveniet quis esse aspernatur
 architecto animi in vero illo. Ut nostrum officia eius tempora, consequatur molestiae
@@ -50,3 +48,11 @@ laboriosam deserunt. Maxime totam, natus ducimus voluptate illum laudantium ab, 
 molestias, dolor similique atque repellendus quis enim? Deleniti dignissimos eveniet
 numquam voluptatibus libero ea inventore quaerat porro maxime repellat, esse dolores
 molestias dolore cum, aperiam accusamus itaque!
+`,
+    ]),
+  ],
+  "testfile.md",
+  {
+    type: "text/markdown",
+  }
+);

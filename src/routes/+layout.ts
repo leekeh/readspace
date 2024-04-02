@@ -1,4 +1,4 @@
-import { initializeTheme } from "@util";
+import { initializeTheme } from "@reader";
 
 /** @type {import('./$types').PageLoad} */
 export function load({ params, data }) {

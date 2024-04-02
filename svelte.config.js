@@ -17,6 +17,7 @@ const config = {
       "@icons": "src/icons",
       "@stores": "src/stores",
       "@util": "src/util",
+      "@reader": "src/reader",
     },
   },
 };
