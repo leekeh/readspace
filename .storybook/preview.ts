@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/svelte";
+import Decorator from "./decorator.svelte";
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +10,8 @@ const preview: Preview = {
       },
     },
   },
+  //@ts-ignore Typing error in Storybook
+  decorators: [() => Decorator],
   globalTypes: {
     theme: {
       description: "Global theme for components",
