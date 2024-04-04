@@ -1,8 +1,20 @@
 <script lang="ts">
-  import { Link } from "@components";
   import { settings } from "@stores";
   console.log($settings.readMode);
+  import Menu from "./menu/Menu.svelte";
   import { testFile } from "./testfile";
+  let text = "";
+  async function loadText() {
+    text = await testFile.text();
+  }
+
+  loadText();
+
+  const readerId = "readerCanvas";
 </script>
 
-Readmode: {$settings.readMode} <br />
+<Menu {readerId} />
+
+<main id={readerId}>
+  {text}
+</main>
