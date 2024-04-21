@@ -1,7 +1,8 @@
 <script lang="ts">
   import DOMPurify from "isomorphic-dompurify";
-  import { parse, Renderer, use } from "marked";
-  import { prerenderText } from "./prerenderText";
+  import { parse, use } from "marked";
+  import { preparePages } from "./preparePages";
+  import Loader from "./Loader/Loader.svelte";
 
   import { settings } from "@stores";
   console.log($settings.readMode);
@@ -9,6 +10,13 @@
   import Menu from "./Menu/Menu.svelte";
   import { testFile } from "./testfile";
   import { onMount } from "svelte";
+
+  let isLoading = $state(true);
+  let pageIndex = $state(0);
+  let pagesTemp: {
+    HTML: string[];
+    headings: { id: string; text: string }[];
+  }[] = $state([]);
 
   let prerenderNode: HTMLDivElement;
   let readerNode: HTMLElement;
@@ -22,18 +30,12 @@
       },
     });
     const parsedText = await parse(input);
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(parsedText, "text/html");
-    const elements = Array.from(doc.body.children);
-    if (elements.length === 0) {
-      console.log("Empty document");
-      return;
-    }
-    const remainingHTML = prerenderText(elements, prerenderNode);
-    readerNode.insertAdjacentHTML("afterbegin", prerenderNode.innerHTML);
-    prerenderNode.innerHTML = "";
-    //TODO: Keep remainder HTML as buffer, figure out pagination.
-    //Maybe keep rendering in the background and create an array of pages.
+    const { amount, isBlank, pages, headings } = preparePages(
+      parsedText,
+      prerenderNode
+    );
+    pagesTemp = pages;
+    isLoading = false;
   }
 
   onMount(() => {
@@ -46,15 +48,26 @@
 <div class="container">
   <Menu {readerId} />
 
-  <main id={readerId} bind:this={readerNode}>
+  <main
+    class="reader"
+    id={readerId}
+    bind:this={readerNode}
+    aria-busy={isLoading}
+  >
+    {#if isLoading}
+      <Loader />
+    {/if}
+    {@html pagesTemp[pageIndex]}
     <div id="prerenderNode" bind:this={prerenderNode} aria-hidden></div>
   </main>
+  <button on:click={() => pageIndex++}>Next page</button>
 </div>
 
 <style>
   main {
     position: relative;
     flex-grow: 1;
+    overflow: auto;
   }
 
   .container {
@@ -71,7 +84,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
+    opacity: 1;
     overflow-x: auto;
   }
 </style>

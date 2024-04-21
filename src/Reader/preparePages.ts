@@ -1,34 +1,66 @@
-export function prerenderText(elements: Node[], prerenderNode: Node) {
+export function preparePages(HTMLContent: string, renderNode: Node) {
+  const doc = new DOMParser().parseFromString(HTMLContent, "text/html");
+  let elementsToRender: Node[] = Array.from(doc.body.children);
+
+  const pages = [];
+  const headings = [];
+  let count = 0;
+  while (elementsToRender.length > 0 && count < 1000) {
+    count++;
+    const {
+      remainingElements,
+      HTML,
+      headings: newHeadings,
+    } = renderPage(elementsToRender, renderNode);
+    elementsToRender = remainingElements;
+    pages.push(HTML);
+    headings.push(...newHeadings);
+  }
+  return { pages, amount: pages.length, headings, isBlank: pages.length === 0 };
+}
+
+function renderPage(elements: Node[], renderNode: Node) {
+  let hasRanOut = false;
   //First, render the elements from the array untill the prerenderNode overflows
   doUntillOverflow({
     callback: function appendElement() {
-      prerenderNode.appendChild(elements.shift() as Node);
+      renderNode.appendChild(elements.shift() as Node);
     },
     cleanupFn: function removeLastElement() {
-      if (prerenderNode.lastChild === null) return;
-      elements.unshift(prerenderNode.lastChild);
-      prerenderNode.removeChild(prerenderNode.lastChild);
+      if (renderNode.lastChild === null || !hasRanOut) return;
+      elements.unshift(renderNode.lastChild);
+      renderNode.removeChild(renderNode.lastChild);
     },
-    canRunCallback: () => elements.length > 0,
+    canRunCallback: () => {
+      hasRanOut = elements.length > 0;
+      return hasRanOut;
+    },
   });
-
-  // If there are no more elements to render, we are done
-  if (elements.length === 0) return;
 
   // Otherwise, recursively render the children of the last element
   // so that we can render as much as possible
   const lastItemOnPage = elements[0];
-  if (lastItemOnPage.hasChildNodes()) {
+  if (lastItemOnPage?.hasChildNodes()) {
     const clone = lastItemOnPage.cloneNode(true);
     lastItemOnPage.replaceChildren();
-    prerenderNode.appendChild(lastItemOnPage);
+    renderNode.appendChild(lastItemOnPage);
     const partialChild = renderChildrenRecursively(lastItemOnPage, clone);
     if (partialChild.hasChildNodes()) {
       elements.unshift(partialChild);
     }
   }
 
-  return elements;
+  const result = renderNode.innerHTML;
+  const headings = Array.from(
+    renderNode.querySelectorAll("h1, h2, h3, h4, h5, h6")
+  ).map((heading: HTMLHeadingElement) => ({
+    id: heading.id,
+    text: heading.textContent,
+    level: parseInt(heading.tagName[1]),
+  }));
+  //TODO: Figure out why there are empty headings
+  renderNode.innerHTML = "";
+  return { remainingElements: elements, HTML: result, headings };
 
   /* ------------- Inner functions ------------- */
   /**
@@ -121,7 +153,7 @@ export function prerenderText(elements: Node[], prerenderNode: Node) {
     canRunCallback: () => boolean;
   }) {
     while (
-      prerenderNode.scrollHeight === prerenderNode.clientHeight &&
+      renderNode.scrollHeight === renderNode.clientHeight &&
       canRunCallback()
     ) {
       callback();
