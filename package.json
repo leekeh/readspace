@@ -24,7 +24,6 @@
     "@storybook/addon-essentials": "^8.0.5",
     "@storybook/addon-interactions": "^8.0.5",
     "@storybook/addon-links": "^8.0.5",
-    "@storybook/addon-svelte-csf": "^4.1.2",
     "@storybook/blocks": "^8.0.5",
     "@storybook/svelte": "^8.0.5",
     "@storybook/sveltekit": "^8.0.5",
@@ -32,13 +31,14 @@
     "@sveltejs/adapter-auto": "^3.1.1",
     "@sveltejs/kit": "^2.5.4",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@types/dompurify": "^3.0.5",
     "@types/eslint": "8.56.6",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^0.8.0",
-    "eslint-plugin-svelte": "^2.35.1",
+    "eslint-plugin-svelte": "^2.36.0-next.13",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.2",
     "storybook": "^8.0.5",
@@ -64,5 +64,10 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "dependencies": {
+    "dompurify": "^3.1.0",
+    "isomorphic-dompurify": "^2.7.0",
+    "marked": "^12.0.2"
   }
 }
