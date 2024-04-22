@@ -14,7 +14,7 @@ export function preparePages(HTMLContent: string, renderNode: Node) {
     } = renderPage(elementsToRender, renderNode);
     elementsToRender = remainingElements;
     pages.push(HTML);
-    headings.push(...newHeadings);
+    headings.push({ pageIndex: count, headings: newHeadings });
   }
   return { pages, amount: pages.length, headings, isBlank: pages.length === 0 };
 }

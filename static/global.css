@@ -20,3 +20,46 @@ body {
   --border: var(--border-width) solid var(--foreground);
   accent-color: var(--highlight-color);
 }
+
+/* Reader Styles */
+.canvas h1 {
+  font-size: 3rem;
+}
+
+.canvas h2 {
+  font-size: 1.8rem;
+}
+
+.canvas h3,
+.canvas h4,
+.canvas h5,
+.canvas h6 {
+  font-size: 1.5rem;
+}
+
+.canvas ul {
+  list-style-type: none;
+}
+
+.canvas li {
+  margin-left: 1rem;
+  position: relative;
+}
+
+.canvas li::before {
+  content: "-";
+  position: absolute;
+  top: 0rem;
+  bottom: 1rem;
+  text-align: center;
+  line-height: 100%;
+  left: -1rem;
+}
+
+.canvas li:not(:last-of-type) {
+  margin-bottom: 0.5rem;
+}
+
+.canvas strong {
+  font-weight: 700;
+}

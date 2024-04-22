@@ -57,13 +57,20 @@
     {#if isLoading}
       <Loader />
     {/if}
-    {@html pagesTemp[pageIndex]}
-    <div id="prerenderNode" bind:this={prerenderNode} aria-hidden></div>
+    <div class="canvas" id="resultNode">{@html pagesTemp[pageIndex]}</div>
+    <div
+      class="canvas"
+      id="prerenderNode"
+      bind:this={prerenderNode}
+      aria-hidden
+    ></div>
   </main>
   <button on:click={() => pageIndex++}>Next page</button>
 </div>
 
 <style>
+  @import "./readerStyles.css";
+
   main {
     position: relative;
     flex-grow: 1;
@@ -78,13 +85,22 @@
     width: 100vw;
   }
 
+  .canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+  }
+
   #prerenderNode {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     opacity: 1;
     overflow-x: auto;
+    z-index: -1;
   }
 </style>
